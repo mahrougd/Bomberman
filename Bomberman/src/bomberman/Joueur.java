@@ -2,8 +2,7 @@ package bomberman;
 
 public class Joueur {
     
-    private int x = 1;                          //Coordonnées x du joueur
-    private int y = 1;                          //Coordonnées y du joueur
+    private int x, y, n;
     private final Plateau plateau;              //Plateau auquel est associé le joueur
     private boolean joueurPoseBombe = false;    //Booléen pour savoir si le joueur peut encore posser une bombe
     private int nbBombe;                        //Nombre de bombe que le joueur peut poser à la fois
@@ -13,8 +12,11 @@ public class Joueur {
     
     /**Association du joueur au plateau
      * @param plateau*/
-    public Joueur(Plateau plateau){
+    public Joueur(Plateau plateau,int x,int y,int num){
         this.plateau = plateau;
+        this.x = x;
+        this.y = y;
+        this.n = num;
     }
     
     
@@ -34,11 +36,11 @@ public class Joueur {
         int posY = this.getCoordonnees()[1];
         if (direction.equals("d") &&  plateau.getPlateau()[y][x+1].toString().equals(" "))
             x++;
-        if (direction.equals("q") &&  plateau.getPlateau()[y][x-1].toString().equals(" "))
+        else if (direction.equals("q") &&  plateau.getPlateau()[y][x-1].toString().equals(" "))
             x--;
-        if (direction.equals("z") &&  plateau.getPlateau()[y-1][x].toString().equals(" "))
+        else if (direction.equals("z") &&  plateau.getPlateau()[y-1][x].toString().equals(" "))
             y--;
-        if (direction.equals("s") &&  plateau.getPlateau()[y+1][x].toString().equals(" "))
+        else if (direction.equals("s") &&  plateau.getPlateau()[y+1][x].toString().equals(" "))
             y++;
         
         if(joueurPoseBombe){
@@ -47,7 +49,8 @@ public class Joueur {
         }
         else
             plateau.getPlateau()[posY][posX].videCase();
-        plateau.update("J");
+        plateau.getPlateau()[this.getCoordonnees()[1]][this.getCoordonnees()[0]].addJoueur(this);
+        plateau.update();
     }
     
     
@@ -98,8 +101,6 @@ public class Joueur {
     /**Réduit la vie du joueur suite à un impacte d'une bombe*/
     public void perteVie(){
         vie --;
-        if(vie < 0)
-            System.out.println("mort!");
     }
     
     
@@ -117,7 +118,7 @@ public class Joueur {
     
     @Override
     public String toString(){
-        return "J";
+        return "J1";
     }
     
 }

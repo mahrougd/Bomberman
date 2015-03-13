@@ -12,7 +12,12 @@ public final class Plateau extends JPanel implements KeyListener {
     private final Cellule[][] cellule;          //Tableau sous forme de cellule
     private final GridBagConstraints gbc;       //Permet de gerer le grid bag layout
     private Joueur joueur;                      //Liste des joueurs sur le plateau
-    PicturesPanel pi;                           //Panel permettant d'afficher les image (à remove)
+    PicturesPanel p1;                           //Panel permettant d'afficher les image (à remove)
+    PicturesPanel p2;
+    PicturesPanel p3;                           //Panel permettant d'afficher les image (à remove)
+    PicturesPanel p4;
+    PicturesPanel p5;                           //Panel permettant d'afficher les image (à remove)
+    PicturesPanel p6;
     
     
     /**Initialise le plateau*/
@@ -30,27 +35,16 @@ public final class Plateau extends JPanel implements KeyListener {
         gbc.ipadx = 50;                                 //
         gbc.ipady = 50;                                 //
         
-        this.setLayout(new GridBagLayout());            //Ajout du grid bag layout
-        addKeyListener(this);                           //Ajout du key listener
+        this.setLayout(new GridBagLayout());                //Ajout du grid bag layout
+        addKeyListener(this);                               //Ajout du key listener
         
-        cellule = new Cellule[11][19];                    //Initialisation de la taille du plateau
-        
-        //Initialisation des obstacles au bord du plateau
-        for(int i = 0; i < cellule.length; i++){
-            for(int j = 0; j < cellule[0].length; j++){
-                cellule[i][j] = new Cellule();
-                /*if(i == 0 || i == cellule[0].length-1 || j == 0 || j == cellule.length-1)
-                    cellule[i][j].addObstacle();*/
+        cellule = new Cellule[11][19];                      //Initialisation de la taille du plateau
+        for (Cellule[] cellule1 : cellule) {
+            for (int j = 0; j < cellule[0].length; j++) {   
+                cellule1[j] = new Cellule();                //Initialisation du tableau
             }
         }
-        createTab();
-        
-        //Initialisation des obstacles à l'intérieur du plateau
-        /*for(int a = 0; a < cellule[0].length; a = a + 2){
-            for(int b = 0; b < cellule.length; b = b + 2){
-                cellule[a][b].addObstacle();
-            }
-        }*/
+        createTab();        //On choisit aléatoirement parmis les 5 tableaux proposés
     }
     
     
@@ -96,7 +90,7 @@ public final class Plateau extends JPanel implements KeyListener {
                     + "#c#c# #c#c#c# #c# #"
                     + "#c c c c c c c c c#"
                     + "#C# # #c# # #c# #c#"
-                    + "#    c c cc      #"
+                    + "#    c c cc       #"
                     + "###################";
                 break;
             case 4 :
@@ -126,12 +120,13 @@ public final class Plateau extends JPanel implements KeyListener {
                     + "###################";
                 break;
         }
-        for(int i = 0; i < cellule.length; i++){
-            for(int j = 0; j < cellule[0].length; j++){
-                if(indice < 209 && tab.charAt(indice) == '#')
-                    cellule[i][j].addObstacle();
-                if(indice < 209 && tab.charAt(indice) == 'c')
-                    cellule[i][j].addCaisse();
+        for (Cellule[] cellule1 : cellule) {
+            for (int j = 0; j < cellule[0].length; j++) {
+                if (indice < 209 && tab.charAt(indice) == '#') {
+                    cellule1[j].addObstacle();
+                } else if (indice < 209 && tab.charAt(indice) == 'c') {
+                    cellule1[j].addCaisse();
+                }
                 indice++;
             }
         }
@@ -144,23 +139,24 @@ public final class Plateau extends JPanel implements KeyListener {
     @Override
     public void keyPressed(KeyEvent evt) {
         int keyCode = evt.getKeyCode();
-        if (keyCode == KeyEvent.VK_LEFT){
-          System.out.println("gauche");
-          joueur.deplacement("q");
-        }else if (keyCode == KeyEvent.VK_RIGHT){
-          System.out.println("droite");
-          joueur.deplacement("d");
-        }else if (keyCode == KeyEvent.VK_UP){
-          System.out.println("avance");
-          joueur.deplacement("z");
-        }else if (keyCode == KeyEvent.VK_DOWN){
-          System.out.println("recule");
-          joueur.deplacement("s");
-        }else if (keyCode == KeyEvent.VK_SPACE){
-          System.out.println("bombe!");
-          joueur.poserBombe(true);
+        switch (keyCode) {
+                    case KeyEvent.VK_LEFT:
+                        joueur.deplacement("q");
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        joueur.deplacement("d");
+                        break;
+                    case KeyEvent.VK_UP:
+                        joueur.deplacement("z");
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        joueur.deplacement("s");
+                        break;
+                    case KeyEvent.VK_SPACE:
+                        joueur.poserBombe(true);
+                        break;
         }
-      }
+    }
 
     
     @Override
@@ -180,7 +176,6 @@ public final class Plateau extends JPanel implements KeyListener {
     public void addJoueur(Joueur joueur){
         this.joueur = joueur;
         cellule[joueur.getCoordonnees()[1]][joueur.getCoordonnees()[0]].addJoueur(joueur);
-        affichePlateau();
     }
     
     
@@ -191,25 +186,33 @@ public final class Plateau extends JPanel implements KeyListener {
     }
     
     
-    /**Permet d'afficher le plateau sous la forme graphique*/
+    /**Permet d'afficher le plateau*/
     public void affichePlateau(){
-        pi = new PicturesPanel(1);
-        for(int i = 0; i < cellule.length; i++){
-            for(int j = 0; j < cellule[0].length; j++){
-                //System.out.print(cellule[i][j] + "|");
-                if(cellule[i][j].toString().equals(" ")){
-                    pi = new PicturesPanel(1);
-                    this.add(pi, gbc);
-                }if(cellule[i][j].toString().equals("#"))
-                    this.add(new PicturesPanel(2), gbc);
-                if(cellule[i][j].toString().equals("J"))
-                    this.add(new PicturesPanel(3), gbc);
-                if(cellule[i][j].toString().equals("B"))
-                    this.add(new PicturesPanel(4), gbc);
-                if(cellule[i][j].toString().equals("F"))
-                    this.add(new PicturesPanel(5), gbc);
-                if(cellule[i][j].toString().equals("c"))
-                    this.add(new PicturesPanel(6), gbc);
+        for (Cellule[] cellule1 : cellule) {
+            for (int j = 0; j < cellule[0].length; j++) {
+                switch (cellule1[j].toString()) {
+                    case  " ":
+                        this.add(new PicturesPanel(1), gbc);
+                        break;
+                    case "#":
+                        this.add(new PicturesPanel(2), gbc);
+                        break;
+                    case "J1":
+                        this.add(new PicturesPanel(3), gbc);
+                        break;
+                    case "J2":
+                        this.add(new PicturesPanel(3), gbc);
+                        break;
+                    case "B":
+                        this.add(new PicturesPanel(4), gbc);
+                        break;
+                    case "F":
+                        this.add(new PicturesPanel(5), gbc);
+                        break;
+                    case "c":
+                        this.add(new PicturesPanel(6), gbc);
+                        break;
+                }
                 gbc.gridx++;
             }
             gbc.gridy++;
@@ -221,20 +224,70 @@ public final class Plateau extends JPanel implements KeyListener {
     }
     
     
-    /**Permet de mettre à jour le plateau
-     * @param s*/
-    public void update(String s){
-        switch(s){
-            case "J":
-                cellule[joueur.getCoordonnees()[1]][joueur.getCoordonnees()[0]].addJoueur(joueur);
-                break;
+    
+    public void update(){
+        PicturesPanel pp;
+        for (int i = 0; i < cellule.length; i++) {
+            for (int j = 0; j < cellule[0].length; j++) {
+                switch (cellule[i][j].toString()) {
+                    case " ":
+                        pp = ((PicturesPanel) getComponent(i*19+j));
+                        pp.setImage(1);
+                        pp.repaint();
+                        break;
+                    case "#":
+                        pp = ((PicturesPanel) getComponent(i*19+j));
+                        pp.setImage(2);
+                        pp.repaint();
+                        break;
+                    case "J1":
+                        pp = ((PicturesPanel) getComponent(i*19+j));
+                        pp.setImage(3);
+                        pp.repaint();
+                        break;
+                    case "J2":
+                        pp = ((PicturesPanel) getComponent(i*19+j));
+                        pp.setImage(3);
+                        pp.repaint();
+                        break;
+                    case "B":
+                        pp = ((PicturesPanel) getComponent(i*19+j));
+                        pp.setImage(4);
+                        pp.repaint();
+                        break;
+                    case "F":
+                        pp = ((PicturesPanel) getComponent(i*19+j));
+                        pp.setImage(5);
+                        pp.repaint();
+                        break;
+                    case "c":
+                        pp = ((PicturesPanel) getComponent(i*19+j));
+                        pp.setImage(6);
+                        pp.repaint();
+                        break;
+                    case "P":
+                        pp = ((PicturesPanel) getComponent(i*19+j));
+                        pp.setImage(7);
+                        pp.repaint();
+                        break;
+                    case "N":
+                        pp = ((PicturesPanel) getComponent(i*19+j));
+                        pp.setImage(8);
+                        pp.repaint();
+                        break;
+                }
+                gbc.gridx++;
+            }
+            gbc.gridy++;
+            gbc.gridx = 1;
         }
-        if(joueur != null && joueur.getVie() < 1){
-            this.getPlateau()[joueur.getCoordonnees()[1]][joueur.getCoordonnees()[0]].videCase();
-            joueur = null;
-        }
-        this.remove(pi);
-        affichePlateau();
-        revalidate();
     }
+    
+    
+    /*@Override
+    public void paintComponent(Graphics g){
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.drawImage(Pictures.ground, 0, 0, this.getWidth(), this.getHeight(), this);
+    }*/
+    
 }

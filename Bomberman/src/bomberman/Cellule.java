@@ -4,7 +4,6 @@ public class Cellule {
     
     private String etat = " ";      //Etat de la cellule
     private Joueur joueur;          //Joueur présent sur la cellule
-    
     public Cellule(){}
     
     
@@ -27,6 +26,11 @@ public class Cellule {
     }
     
     
+    public Joueur getJoueur(){
+        return joueur;
+    }
+    
+    
     /**Vide la case*/
     public void videCase(){
         joueur = null;
@@ -41,22 +45,32 @@ public class Cellule {
     }
     
     
-    public Joueur getJoueur(){
-        return joueur;
-    }
-    
-    
     public void verifExplosion(){
         if(!etat.equals("#")){
-            if(joueur != null)
-                joueur.perteVie();
-            etat = "F";
+            if(etat.equals("c"))
+                insertObject();
+            else {
+                if(joueur != null)
+                    joueur.perteVie();
+                etat = "F";
+            }
         }
     }
     
     
+    public void insertObject(){
+        int i = (int)(Math.random() * 3);
+        if(i == 0)
+            etat = "P";
+        else if(i == 1)
+            etat = "N";
+        else
+            etat = " ";
+    }
+    
+    
     public void resetEtat(){
-        if(!etat.equals("#"))
+        if(!etat.equals("#") && !etat.equals("N") && !etat.equals("P"))
             etat = " ";
     }
     
