@@ -4,21 +4,21 @@ import javax.swing.JFrame;
 
 public class GameWindow extends JFrame {
 	
-    private final Joueur joueur1;
-    private final Joueur joueur2;
-    private final Plateau plateau;
+    private final Player player1;
+    private final Player player2;
+    private final Tray tray;
     
     public GameWindow(){
         this.setSize(1200, 720);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
         
-        plateau = new Plateau();
-	joueur1 = new Joueur(plateau,1,1,1);
-        joueur2 = new Joueur(plateau,17,9,2);
-	plateau.addJoueur(joueur1);
-        plateau.addJoueur(joueur2);
-        plateau.affichePlateau();
-        this.getContentPane().add(plateau);
+        tray = new Tray();
+	player1 = new Player(tray,1,1,'1');
+        player2 = new Player(tray,17,9,'2');
+	tray.addPlayer(player1);
+        tray.addPlayer(player2);
+        tray.displayTray();
+        this.getContentPane().add(tray);
         
         this.setVisible(true);
     }

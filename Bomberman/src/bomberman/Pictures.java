@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+/**This class allow to load all images*/
 public class Pictures {
 
     public static Image ground;
@@ -22,7 +23,7 @@ public class Pictures {
             ground = ImageIO.read(this.getClass().getResourceAsStream("ground.png"));
             obstacle = ImageIO.read(this.getClass().getResourceAsStream("obstacle.jpg"));
             player = ImageIO.read(this.getClass().getResourceAsStream("player.png"));
-            bomb = ImageIO.read(this.getClass().getResourceAsStream("bomb.png"));
+            bomb = ImageIO.read(this.getClass().getResourceAsStream("bombe.png"));
             flame = ImageIO.read(this.getClass().getResourceAsStream("flame.jpg"));
             box = ImageIO.read(this.getClass().getResourceAsStream("box.png"));
             powerful = ImageIO.read(this.getClass().getResourceAsStream("powerful.jpg"));

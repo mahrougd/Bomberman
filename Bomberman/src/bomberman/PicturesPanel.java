@@ -6,6 +6,7 @@ import java.awt.Image;
 import javax.swing.JPanel;
 import java.awt.Image.*;
 
+/**This class corresponds to the display of a cell*/
 public class PicturesPanel extends JPanel {
 
     private int choice;
