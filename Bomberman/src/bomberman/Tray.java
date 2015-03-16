@@ -184,7 +184,7 @@ public final class Tray extends JPanel implements KeyListener {
         for (Cell[] cell1 : cellTray) {
             for (Cell cell2 : cell1) {
                 switch (cell2.getComponent()) {
-                    case  ' ':
+                    case ' ':
                         this.add(new PicturesPanel(1), gbc);
                         break;
                     case '#':
@@ -196,14 +196,8 @@ public final class Tray extends JPanel implements KeyListener {
                     case '2':
                         this.add(new PicturesPanel(3), gbc);
                         break;
-                    case 'B':
-                        this.add(new PicturesPanel(4), gbc);
-                        break;
-                    case 'F':
-                        this.add(new PicturesPanel(5), gbc);
-                        break;
                     case 'c':
-                        this.add(new PicturesPanel(6), gbc);
+                        this.add(new PicturesPanel(8), gbc);
                         break;
                 }
                 gbc.gridx++;
@@ -248,24 +242,34 @@ public final class Tray extends JPanel implements KeyListener {
                         pp.setImage(4);
                         pp.repaint();
                         break;
-                    case 'F':
+                    case 'x':
                         pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(5);
                         pp.repaint();
                         break;
-                    case 'c':
+                    case 'y':
                         pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(6);
                         pp.repaint();
                         break;
-                    case 'P':
+                    case 'z':
                         pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(7);
                         pp.repaint();
                         break;
-                    case 'N':
+                    case 'c':
                         pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(8);
+                        pp.repaint();
+                        break;
+                    case 'P':
+                        pp = ((PicturesPanel) getComponent(i*19+j));
+                        pp.setImage(9);
+                        pp.repaint();
+                        break;
+                    case 'N':
+                        pp = ((PicturesPanel) getComponent(i*19+j));
+                        pp.setImage(10);
                         pp.repaint();
                         break;
                 }

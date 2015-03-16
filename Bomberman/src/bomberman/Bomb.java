@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 public class Bomb extends Thread {
 
     private final Tray tray;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     private final int powerful;
     private final Player player;
 
@@ -41,14 +41,14 @@ public class Bomb extends Thread {
         //The bomb explodes and causes damages on the boxs contained in this array
         ArrayList <Cell> cells = new ArrayList<>();
         cells.add(tray.getBoardTray()[y][x]);
-        tray.getBoardTray()[y][x].blownUpBomb();
+        tray.getBoardTray()[y][x].blownUpBomb('z');
         for(int a = y - 1; a >= (y - powerful); a--){
             if(a >= 0){ 
                 if(!estCaisseObstacle(x, a)){
-                    tray.getBoardTray()[a][x].blownUpBomb();
+                    tray.getBoardTray()[a][x].blownUpBomb('y');
                     cells.add(tray.getBoardTray()[a][x]);
                 } else {
-                    tray.getBoardTray()[a][x].blownUpBomb();
+                    tray.getBoardTray()[a][x].blownUpBomb('y');
                     cells.add(tray.getBoardTray()[a][x]);
                     break;
                 }
@@ -58,10 +58,10 @@ public class Bomb extends Thread {
         for(int b = y + 1; b <= (y + powerful) ; b++){
             if(b < tray.getBoardTray().length){ 
                 if(!estCaisseObstacle(x, b)){
-                    tray.getBoardTray()[b][x].blownUpBomb();
+                    tray.getBoardTray()[b][x].blownUpBomb('y');
                     cells.add(tray.getBoardTray()[b][x]);
                 } else {
-                    tray.getBoardTray()[b][x].blownUpBomb();
+                    tray.getBoardTray()[b][x].blownUpBomb('y');
                     cells.add(tray.getBoardTray()[b][x]);
                     break;
                 }
@@ -71,10 +71,10 @@ public class Bomb extends Thread {
         for(int d = x - 1; d >= (x - powerful) ; d--){
             if(d >= 0){
                 if(!estCaisseObstacle(d, y)){
-                    tray.getBoardTray()[y][d].blownUpBomb();
+                    tray.getBoardTray()[y][d].blownUpBomb('x');
                     cells.add(tray.getBoardTray()[y][d]);
                 } else {
-                    tray.getBoardTray()[y][d].blownUpBomb();
+                    tray.getBoardTray()[y][d].blownUpBomb('x');
                     cells.add(tray.getBoardTray()[y][d]);
                     break;
                 }
@@ -84,10 +84,10 @@ public class Bomb extends Thread {
         for(int e = x + 1; e <= (x + powerful) ; e++){
             if(e < tray.getBoardTray()[0].length){
                 if(!estCaisseObstacle(e, y)){
-                    tray.getBoardTray()[y][e].blownUpBomb();
+                    tray.getBoardTray()[y][e].blownUpBomb('x');
                     cells.add(tray.getBoardTray()[y][e]);
                 } else {
-                    tray.getBoardTray()[y][e].blownUpBomb();
+                    tray.getBoardTray()[y][e].blownUpBomb('x');
                     cells.add(tray.getBoardTray()[y][e]);
                     break;
                 }

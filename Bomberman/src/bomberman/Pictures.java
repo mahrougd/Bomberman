@@ -11,7 +11,9 @@ public class Pictures {
     public static Image obstacle;
     public static Image player;
     public static Image bomb;
-    public static Image flame;
+    public static Image flame1;
+    public static Image flame2;
+    public static Image flame3;
     public static Image box;
     public static Image powerful;
     public static Image number;
@@ -22,12 +24,14 @@ public class Pictures {
         try{
             ground = ImageIO.read(this.getClass().getResourceAsStream("ground.png"));
             obstacle = ImageIO.read(this.getClass().getResourceAsStream("obstacle.jpg"));
-            player = ImageIO.read(this.getClass().getResourceAsStream("player.png"));
-            bomb = ImageIO.read(this.getClass().getResourceAsStream("bombe.png"));
-            flame = ImageIO.read(this.getClass().getResourceAsStream("flame.jpg"));
-            box = ImageIO.read(this.getClass().getResourceAsStream("box.png"));
-            powerful = ImageIO.read(this.getClass().getResourceAsStream("powerful.jpg"));
-            number = ImageIO.read(this.getClass().getResourceAsStream("number.jpg"));
+            player = ImageIO.read(this.getClass().getResourceAsStream("Player_1.png"));
+            bomb = ImageIO.read(this.getClass().getResourceAsStream("Bomb_1.png"));
+            flame1 = ImageIO.read(this.getClass().getResourceAsStream("Flame1.png"));
+            flame2 = ImageIO.read(this.getClass().getResourceAsStream("Flame2.png"));
+            flame3 = ImageIO.read(this.getClass().getResourceAsStream("Flame3.png"));
+            box = ImageIO.read(this.getClass().getResourceAsStream("box_1.png"));
+            powerful = ImageIO.read(this.getClass().getResourceAsStream("BonusPowerful.png"));
+            number = ImageIO.read(this.getClass().getResourceAsStream("BonusBomb.png"));
         }catch (IOException e) {
             System.out.println("The image was not able to be read");
         }

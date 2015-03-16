@@ -75,8 +75,9 @@ public class Cell {
     }
     
     
-    /**Allow to blown up the bomb*/
-    public void blownUpBomb(){
+    /**Allow to blown up the bom
+     * @param dir Direction of the explosion*/
+    public void blownUpBomb(char dir){
         if(state != '#'){
             if(state == 'c')
                 explodeBox();
@@ -84,7 +85,7 @@ public class Cell {
                 if(player != null)
                     player.perteVie();
             } else
-                state = 'F';
+                state = dir;
         }
     }
     

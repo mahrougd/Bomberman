@@ -43,15 +43,21 @@ public class PicturesPanel extends JPanel {
                 i = Pictures.bomb;
                 break;
             case 5:
-                i = Pictures.flame;
+                i = Pictures.flame1;
                 break;
             case 6:
-                i = Pictures.box;
+                i = Pictures.flame2;
                 break;
             case 7:
-                i = Pictures.powerful;
+                i = Pictures.flame3;
                 break;
             case 8:
+                i = Pictures.box;
+                break;
+            case 9:
+                i = Pictures.powerful;
+                break;
+            case 10:
                 i = Pictures.number;
                 break;
         }
