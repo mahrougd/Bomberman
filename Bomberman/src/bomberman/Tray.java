@@ -216,6 +216,7 @@ public final class Tray extends JPanel implements KeyListener {
         PicturesPanel pp;
         for (int i = 0; i < cellTray.length; i++) {
             for (int j = 0; j < cellTray[0].length; j++) {
+                System.out.print(cellTray[i][j].getComponent() + "|");
                 switch (cellTray[i][j].getComponent()) {
                     case ' ':
                         pp = ((PicturesPanel) getComponent(i*19+j));
@@ -275,9 +276,11 @@ public final class Tray extends JPanel implements KeyListener {
                 }
                 gbc.gridx++;
             }
+            System.out.print("\n");
             gbc.gridy++;
             gbc.gridx = 1;
         }
+        System.out.print("\n");
         if(player != null && player.getLife() < 1)
             player = null;
     }

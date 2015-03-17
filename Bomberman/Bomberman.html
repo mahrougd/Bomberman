@@ -1,0 +1,34 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<title>Bomberman</title>
+	</head>
+	<body>
+		
+		<div id="divTitle">
+			<P id='title'>Bomberman</P>
+		</div>
+		<div id="divMenu">
+			<ul id='menuList'>
+			  <li><a>Menu</a></li>
+			  <li><a>Score</a></li>
+			  <li><a>Jeu</a></li>
+			</ul>
+		</div>
+		<div id="divGame">
+			<div id="divGameMenu">
+				<input type=button value="New Game" onclick="gameType();"></input>
+			</div>
+			<div id="divGameDisplay">
+			
+			</div>
+		</div>
+		<script>
+			function gameType(){
+				document.getElementById('divGameDisplay').innerHTML = "<p>coucou</p>";
+			}
+		</script>
+	</body>
+</html>
