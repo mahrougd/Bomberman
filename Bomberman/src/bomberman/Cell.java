@@ -40,13 +40,13 @@ public class Cell {
     
     
     /**Add a plyer in the cell
-     * @param player Player at to add to the cell*/
+     * @param player Player to add to the cell*/
     public void addPlayer(Player player){
         //We test at first if the cell contains a bonus
         if(state == 'P')
-            player.gainPuissanceBombe();
+            player.gainBombPowerful();
         if(state == 'N')
-            player.gainNbBombe();
+            player.gainBombNb();
         
         this.player = player;
         state = this.player.getId();

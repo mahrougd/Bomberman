@@ -13,10 +13,12 @@ public class GameWindow extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
         
         tray = new Tray();
+        
 	player1 = new Player(tray,1,1,'1');
         player2 = new Player(tray,17,9,'2');
 	tray.addPlayer(player1);
         tray.addPlayer(player2);
+        
         tray.displayTray();
         this.getContentPane().add(tray);
         

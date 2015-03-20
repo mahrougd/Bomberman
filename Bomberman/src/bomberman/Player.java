@@ -6,10 +6,10 @@ public class Player {
     private final char id;              //id of player
     private final Tray tray;            //Tray with which is associated the player
     
-    private int nbBombe = 1;            //Number of bomb which the player can put at the same time
-    private int nbBombePoser = 0;       //Nomber of bomb already put
-    private int vie = 1;                //Nomber of life of player
-    private int puissanceBombe = 1;     //Powerful of bomb to the player
+    private int bombNb = 1;            //Number of bomb which the player can put at the same time
+    private int BombNbPut = 0;       //Nomber of bomb already put
+    private int life = 1;                //Nomber of life of player
+    private int bombPowerful = 1;     //Powerful of bomb to the player
     
     
     /**@param tray Tray with which is associated the player
@@ -37,10 +37,43 @@ public class Player {
         return this.y;
     }
     
+
+    /**Return the id of the player
+     * @return  number of the player*/
+    public char getId(){
+        return id;
+    }
+    
+    
+    /**Return the tray with which is associated the player
+     * @return the tray associate to the player*/
+    public Tray getTray(){
+        return tray;
+    }
+    
+    
+    /**Return the remaining life
+     * @return remaining life*/
+    public int getLife(){
+        return life;
+    }
+    
+    
+    /**Increases the player life*/
+    public void gainVie(){
+        life ++;
+    }
+    
+    
+    /**Degreases the player life*/
+    public void perteVie(){
+        life --;
+    }
+    
     
     /**Method allowing the travel of the player
      * @param direction 
-     * z = haut, s = bas, q = gauche, d = droite*/
+     * z = up, s = down, q = left, d = right*/
     public void move(char direction){
         int posX = this.getX();
         int posY = this.getY();
@@ -65,76 +98,42 @@ public class Player {
         if(tray.getBoardTray()[posY][posX].getComponent() != 'B')
             tray.getBoardTray()[posY][posX].cleanCell();                //Remove the player to his position
         tray.getBoardTray()[this.getY()][this.getX()].addPlayer(this);  //move the player on his new position
-        tray.update();                                                  //We update
+        tray.update();                   
     }
     
     
     //Verify if the travel is valid
     private boolean validTravel(int newX, int newY){
-        return tray.getBoardTray()[newY][newX].getComponent() != '#' && tray.getBoardTray()[newY][newX].getComponent() != 'c';
+        return tray.getBoardTray()[newY][newX].getComponent() != '#' && tray.getBoardTray()[newY][newX].getComponent() != 'c'
+                && tray.getBoardTray()[newY][newX].getComponent() != 'B';
     }
     
     
     /**Allow to the player to put a bomb*/
     public void putBomb(){
-        if(nbBombePoser < nbBombe){
-            nbBombePoser ++;
-            Bomb b = new Bomb(this, this.getX(), this.getY(), this.puissanceBombe);
+        if(BombNbPut < bombNb){
+            BombNbPut ++;
+            Bomb b = new Bomb(this, this.getX(), this.getY(), this.bombPowerful);
             b.start();
         }
     }
     
     
-    
-    
-    /***/
-    public void bombeExploser(){
-        nbBombePoser --;
+    /**Decreases the number of bomb that the player have put*/
+    public void bombExplosed(){
+        BombNbPut --;
     }
     
     
-    /**Return the tray with which is associated the player
-     * @return the tray associate to the player*/
-    public Tray getTray(){
-        return tray;
-    }
-    
-
-    /**Return the id of the player
-     * @return  number of the player*/
-    public char getId(){
-        return id;
+    /**Increases the number of bomb that the player can put*/
+    public void gainBombNb(){
+        bombNb ++;
     }
     
     
-    /**Return the remaining life
-     * @return remaining life*/
-    public int getLife(){
-        return vie;
-    }
-    
-    
-    /**Augmente la vie du joueur suite à un gain de vie*/
-    public void gainVie(){
-        vie ++;
-    }
-    
-    
-    /**Réduit la vie du joueur suite à un impacte d'une bombe*/
-    public void perteVie(){
-        vie --;
-    }
-    
-    
-    /**Augmente le nombre de bombe possable*/
-    public void gainNbBombe(){
-        nbBombe ++;
-    }
-    
-    
-    /**Augmente la puissance de la bombe*/
-    public void gainPuissanceBombe(){
-        puissanceBombe ++;
+    /**Increases the powerful of bombs*/
+    public void gainBombPowerful(){
+        bombPowerful ++;
     }
     
 }

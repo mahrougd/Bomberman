@@ -63,10 +63,10 @@ public class PicturesPanel extends JPanel {
                 i = Pictures.number;
                 break;
         }
+        g2d.setBackground(new Color(0, 121, 60));
+        g2d.clearRect(0, 0, this.getWidth(), this.getHeight());
         if(i != null)
             g2d.drawImage(i, 0, 0, this.getWidth(), this.getHeight(), this);
-        else
-            g2d.setBackground(Color.white);
     }
     
 }

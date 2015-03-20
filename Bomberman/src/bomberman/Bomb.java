@@ -109,7 +109,7 @@ public class Bomb extends Thread {
                 cel.update();
             
             tray.update();
-            player.bombeExploser();
+            player.bombExplosed();
     }
     
     public boolean estCaisseObstacle(int x, int y){
