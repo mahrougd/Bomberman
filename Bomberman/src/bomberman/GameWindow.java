@@ -9,7 +9,7 @@ public class GameWindow extends JFrame {
     private final Tray tray;
     
     public GameWindow(){
-        this.setSize(1200, 720);
+        this.setSize(1170, 705);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
         
         tray = new Tray();

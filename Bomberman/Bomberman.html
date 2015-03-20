@@ -11,11 +11,7 @@
 			<P id='title'>Bomberman</P>
 		</div>
 		<div id="divMenu">
-			<ul id='menuList'>
-			  <li><a>Menu</a></li>
-			  <li><a>Score</a></li>
-			  <li><a>Jeu</a></li>
-			</ul>
+			
 		</div>
 		<div id="divGame">
 			<div id="divGameMenu">
@@ -27,7 +23,10 @@
 		</div>
 		<script>
 			function gameType(){
-				document.getElementById('divGameDisplay').innerHTML = "<p>coucou</p>";
+				document.getElementById('divGameDisplay').innerHTML = 	"<ul id='menuList'>" +
+																			"<li><a>Jouer à 2</a></li>" +
+																			"<li><a>Jouer en réseau</a></li>" +
+																		"</ul>";
 			}
 		</script>
 	</body>

@@ -1,5 +1,6 @@
 package bomberman;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -16,6 +17,8 @@ public final class Tray extends JPanel implements KeyListener {
     
     /**Initialize the display of the tray and create this*/
     public Tray(){
+        this.setBackground(new Color(0, 121, 60));
+        
         gbc = new GridBagConstraints();                 //
         gbc.gridx = 1;                                  //
         gbc.gridy = 1;                                  //
@@ -213,69 +216,50 @@ public final class Tray extends JPanel implements KeyListener {
     
     /**Update the tray*/
     public void update(){
-        PicturesPanel pp;
+        PicturesPanel pp = null;
         for (int i = 0; i < cellTray.length; i++) {
             for (int j = 0; j < cellTray[0].length; j++) {
                 System.out.print(cellTray[i][j].getComponent() + "|");
+                pp = ((PicturesPanel) getComponent(i*19+j));
                 switch (cellTray[i][j].getComponent()) {
                     case ' ':
-                        pp = ((PicturesPanel) getComponent(i*19+j));
+                        
                         pp.setImage(1);
-                        pp.repaint();
                         break;
                     case '#':
-                        pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(2);
-                        pp.repaint();
                         break;
                     case '1':
-                        pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(3);
-                        pp.repaint();
                         break;
                     case '2':
-                        pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(3);
-                        pp.repaint();
                         break;
                     case 'B':
-                        pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(4);
-                        pp.repaint();
                         break;
                     case 'x':
-                        pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(5);
-                        pp.repaint();
                         break;
                     case 'y':
-                        pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(6);
-                        pp.repaint();
                         break;
                     case 'z':
-                        pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(7);
-                        pp.repaint();
                         break;
                     case 'c':
-                        pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(8);
-                        pp.repaint();
                         break;
                     case 'P':
-                        pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(9);
-                        pp.repaint();
                         break;
                     case 'N':
-                        pp = ((PicturesPanel) getComponent(i*19+j));
                         pp.setImage(10);
-                        pp.repaint();
                         break;
                 }
+                pp.repaint();
                 gbc.gridx++;
-            }
+            }  
             System.out.print("\n");
             gbc.gridy++;
             gbc.gridx = 1;

@@ -1,5 +1,6 @@
 package bomberman;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -31,7 +32,8 @@ public class PicturesPanel extends JPanel {
         Graphics2D g2d = (Graphics2D)g;
         switch (choice){
             case 1:
-                i = Pictures.ground;
+                i = null;
+                //i = Pictures.ground;
                 break;
             case 2:
                 i = Pictures.obstacle;
@@ -61,7 +63,10 @@ public class PicturesPanel extends JPanel {
                 i = Pictures.number;
                 break;
         }
-        g2d.drawImage(i, 0, 0, this.getWidth(), this.getHeight(), this);
+        if(i != null)
+            g2d.drawImage(i, 0, 0, this.getWidth(), this.getHeight(), this);
+        else
+            g2d.setBackground(Color.white);
     }
     
 }

@@ -93,7 +93,8 @@ public class Player {
     }
     
     
-    /**Return the tray with which is associated the player*/
+    /**Return the tray with which is associated the player
+     * @return the tray associate to the player*/
     public Tray getTray(){
         return tray;
     }
