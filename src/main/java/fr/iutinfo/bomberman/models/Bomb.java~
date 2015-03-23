@@ -1,4 +1,4 @@
-package fr.iutinfo.bomberman.models;
+package bomberman;
 
 import fr.iutinfo.bomberman.resources.*;
 

@@ -1,4 +1,4 @@
-package fr.iutinfo.bomberman.resources;
+package resources;
 import fr.iutinfo.bomberman.models.*;
 import javax.swing.JFrame;
 
