@@ -1,44 +1,33 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE>
+<html>
 	<head>
-		<title>Jersey Skeleton</title>
-		<meta charset='utf-8'>
-		<!-- jQuery -->
-		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-		<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-		
-		<!-- bootstrap -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-		
-		<!-- Code local -->
-		<script src="all.js"></script>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<title>Bomberman</title>
 	</head>
 	<body>
-		<div class="container">
-			<div class="row">
-				<input type="text" name="user" id="user" placeholder="Nom ?"/>
-				<div class="btn-group" role="group">
-					<button id="get" class="btn btn-default">Lire</button>
-					<button id="post" class="btn btn-primary">Sauver</button>
-					<button id="list" class="btn btn-warning">Lister</button>
-				</div>
-			</div>
-			<div class="row">
-				<div class="panel panel-info">
-					<div class="panel-heading">Réponse</div>
-	  				<div class="panel-body" id="reponse">
-	  				</div>
-				</div>
-			</div>	
+		
+		<div id="divTitle">
+			<P id='title'>Bomberman</P>
 		</div>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$("#get").click(function () {getUser($('#user').val())});
-				$("#post").click(function () {postUser($('#user').val())});
-				$("#list").click(function () {listUsers()});
-			});
-  		</script>
+		<div id="divMenu">
+			
+		</div>
+		<div id="divGame">
+			<div id="divGameMenu">
+				<input type=button value="New Game" onclick="gameType();"></input>
+			</div>
+			<div id="divGameDisplay">
+			
+			</div>
+		</div>
+		<script>
+			function gameType(){
+				document.getElementById('divGameDisplay').innerHTML = 	"<ul id='menuList'>" +
+																			"<li><a>Jouer à 2</a></li>" +
+																			"<li><a>Jouer en réseau</a></li>" +
+																		"</ul>";
+			}
+		</script>
 	</body>
 </html>
