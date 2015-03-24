@@ -1,4 +1,4 @@
-package fr.iutinfo;
+package fr.iutinfo.bomberman;
 
 import java.io.IOException;
 import java.io.PrintWriter;

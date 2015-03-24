@@ -9,6 +9,10 @@ import javax.ws.rs.core.Application;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
 
+import fr.iutinfo.bomberman.App;
+import fr.iutinfo.bomberman.RestClient;
+import fr.iutinfo.bomberman.User;
+
 public class RestClientTest extends JerseyTest {
 	@Override
     protected Application configure() {

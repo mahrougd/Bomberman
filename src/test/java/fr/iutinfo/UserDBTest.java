@@ -15,6 +15,10 @@ import org.junit.Test;
 import org.skife.jdbi.v2.DBI;
 import org.sqlite.SQLiteDataSource;
 
+import fr.iutinfo.bomberman.App;
+import fr.iutinfo.bomberman.User;
+import fr.iutinfo.bomberman.models.UserDao;
+
 public class UserDBTest extends JerseyTest {
 	private static UserDao dao;
 	

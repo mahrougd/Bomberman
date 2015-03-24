@@ -1,4 +1,4 @@
-package fr.iutinfo;
+package fr.iutinfo.bomberman;
 
 import java.util.HashMap;
 import java.util.List;
