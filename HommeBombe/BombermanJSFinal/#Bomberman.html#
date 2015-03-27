@@ -1,0 +1,175 @@
+<html>
+  <head>
+    <script type='text/javascript'>
+      
+      var x=45;
+      var y=45;
+      
+      var tabxv = new Array;
+      var tabyv = new Array;
+      var tabxl = new Array;
+      var tabyl = new Array;
+      
+      var rose = "rgb(239,219,200)";
+      var gris = "rgb(160,160,160)";
+      
+      
+      var hero = new Image();
+      hero.src = 'hero.png';
+      hero.onload = function() {
+      console.info("hero loaded !");
+      
+      var bmb = new Image();
+      bmb.src = 'Bomb.png';
+      bmb.onload = function() {
+      console.info("hero loaded !");
+      
+      for (var i=0; i<canvas.width; i++) {
+				    for (var j=0; j<canvas.height; j++) {
+								   //if((i%2 !== 0 && j%2 === 0)|| i%2 === 0){
+      								   gfx.fillStyle = rose ; 
+       								   gfx.fillRect(45*i, 45*j, 40, 40); // placer les rectangle
+								   //}
+								   }
+								   }
+								   
+								   for (var i=0; i<canvas.width; i++) {     
+ 												 gfx.fillStyle = gris; 
+												 gfx.fillRect(45*i,0, 40, 40);
+												 }
+												 for (var i=0; i<canvas.width; i++) {     
+ 															       gfx.fillStyle = gris; 
+															       gfx.fillRect(0,45*i, 40, 40);
+															       }
+															       for (var i=0; i<canvas.width; i++) {     
+ 																			     gfx.fillStyle = gris; 
+																			     gfx.fillRect(450,45*i, 40, 40);
+																			     }
+																			     
+																			     for (var i=0; i<canvas.width; i++) {     
+ 																							   gfx.fillStyle = gris; 
+																							   gfx.fillRect(45*i,450, 40, 40);
+																							   }
+																							   
+																							   /*****************Les Obstacles du milieu*******************************/
+																							   
+																							   gfx.fillStyle = gris; 
+																							   var cpt=0;
+																							   for(var i=1;i<6;i++){
+																									   for(var j=1;j<6;j++){
+																											   gfx.fillRect(90*i,90*j, 40, 40);
+        																										   tabxv[cpt]=90*i;
+ 																											   tabyv[cpt]=90*j-45;
+																											   tabxl[cpt]=90*i-45;
+																											   tabyl[cpt]=90*j;
+																											   cpt++;
+																											   }
+																											   }
+																											   
+																											   
+																											   /********************************************************************/
+																											   
+																											   gfx.drawImage(hero,0,0,50,50,x,y,40,40);
+																											   gfx.drawImage(bmb,0,0,100,100,x+45,y,40,40);
+																											   
+																											   };
+																											   };
+																											   
+																											   
+																											   
+																											   function deplacer(event) {
+																											   var pos=document.getElementById("demo").innerHTML= event.keyCode;
+  
+																											   //droite
+																											   if (pos === 39) {
+																											   if(x<400){
+																												  for(var i=0; i<tabxl.length; i++){
+																															       if (x===tabxl[i] && y===tabyl[i]){
+																															       return null;
+																															       }	
+																															       }
+																															       gfx.fillStyle = "rgb(239,219,200)"; 
+																															       gfx.fillRect(x,y, 40, 40);
+																															       gfx.drawImage(hero,0,0,50,50,x+45,y,40,40);
+																															       x=x+45;
+																															       }      
+																															       }
+																															       
+																															       
+																															       
+																															       //gauche
+																															       if (pos === 37) {
+																															       if(x>50){
+																												  for(var i=0; i<tabxl.length; i++){
+																															       if (x===tabxl[i] && y===tabyl[i]){
+																															       return null;
+																															       }	
+																															       }
+																															       gfx.fillStyle = "rgb(239,219,200)"; 
+																															       gfx.fillRect(x,y, 40, 40);
+																															       gfx.drawImage(hero,0,0,50,50,x-45,y,40,40);
+																															       x=x-45;
+																															       }
+																															       }
+																															       
+																															       
+																															       // haut
+																															       if (pos === 38) {
+																															       if(y>50){
+																												  for(var i=0; i<tabxv.length; i++){
+																															       if (x===tabxv[i] && y===tabyv[i]){
+																															       return null;
+																															       }	
+																															       }
+																															       gfx.fillStyle = "rgb(239,219,200)"; 
+																															       gfx.fillRect(x,y, 40, 40);
+																															       gfx.drawImage(hero,0,0,50,50,x,y-45,40,40);
+																															       y=y-45;
+																															       }
+																															       }
+																															       // bas
+																															       if (pos === 40) {
+																															       if(y < 400){
+																																      for(var i=0; i<tabxv.length; i++){
+																																				   if (x===tabxv[i] && y===tabyv[i]){
+																																				   return null;
+																																				   }	
+																																				   }
+																																				   gfx.fillStyle = "rgb(239,219,200)"; 
+																																				   gfx.fillRect(x,y, 40, 40);
+																																				   gfx.drawImage(hero,0,0,50,50,x,y+45,40,40);
+																																				   y=y+45;
+																																				   }
+																																				   }
+																																				   }
+																																				   
+																																				   </script>
+    
+    
+    
+    
+    
+    
+    <body onkeyup="deplacer(event)">
+      <p id="demo"> </p>
+      
+      
+  </head>
+  <body>
+    <h1>Bomberman By P15</h1>
+    <center><canvas id='screen'>JavaScript est nécessaire ...</canvas></center>
+    <script type='text/javascript'>
+      
+      var canvas = document.getElementById("screen");
+      canvas.width  = 495; 
+      canvas.height = 495; 
+      var gfx    = canvas.getContext("2d");
+      
+      
+      
+      
+      
+      
+    </script>
+  </body>
+</html>

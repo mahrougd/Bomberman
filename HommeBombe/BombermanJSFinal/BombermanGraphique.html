@@ -1,0 +1,252 @@
+<html>
+  <head>
+  <script type='text/javascript'>
+  
+	/******************Les Variables ***********************/
+	var x=45;
+	var y=45;
+	var pb=0;
+	var pos=0;
+	var apb=0;
+
+	//indice pour le tableau des bombes
+	var b=0;
+	/*var plateau[];
+	 for (var k=0; k<canvas.width; k++) { 
+    		var line = [];
+     	for (var m=0; m<canvas.height;m++) {
+       		line.push(45*i);
+     	}
+     	plateau.push(line);
+    }*/
+
+
+
+	// Tableau contenant les bombes
+		//leurs positions verticales
+		var tabxv = new Array;
+		var tabyv = new Array;
+		var tabxh = new Array;
+		var tabyh = new Array;
+
+	// Tableau contenant les bombes
+		//leurs positions verticales
+		var tabBxv = new Array;
+		var tabByv = new Array;
+		var tabBxh = new Array;
+		var tabByh = new Array;
+
+	var rose = "rgb(239,219,200)";
+	var gris = "rgb(160,160,160)";
+	
+	/******************Les Images ***********************/
+
+	var bmb = new Image();
+	bmb.src = 'Bomb.png';
+	bmb.onload = function() {
+     	console.info("hero loaded !");
+     	//gfx.drawImage(bmb,0,0,100,100,x+45,y,40,40);
+     };
+
+	var hero = new Image();
+	hero.src = 'hero.png';
+	hero.onload = function() {
+	      console.info("hero loaded !");
+		
+
+			/***************Dessin du Plateau*****************/
+      		for (var i=0; i<canvas.width/45; i++) {
+      			for (var j=0; j<canvas.height/45; j++) {
+      				gfx.fillStyle = rose ; 
+       				gfx.fillRect(45*i, 45*j, 40, 40);
+    				}
+ 			}  
+			for (var i=0; i<canvas.width/45; i++) {     
+ 				gfx.fillStyle = gris; 
+				gfx.fillRect(45*i,0, 40, 40);
+      		}
+      		for (var i=0; i<canvas.width/45; i++) {     
+ 				gfx.fillStyle = gris; 
+				gfx.fillRect(0,45*i, 40, 40);
+      		}
+      		for (var i=0; i<canvas.width/45; i++) {     
+ 				gfx.fillStyle = gris; 
+				gfx.fillRect(450,45*i, 40, 40);
+      		}
+
+      		for (var i=0; i<canvas.width/45; i++) {     
+ 				gfx.fillStyle = gris; 
+				gfx.fillRect(45*i,450, 40, 40);
+      		}
+
+      		/************Les Obstacles du milieu*******************/
+
+		      gfx.fillStyle = gris; 
+			var cpt=0;
+			for(var i=1;i<6;i++){
+				for(var j=1;j<6;j++){
+					gfx.fillRect(90*i,90*j, 40, 40);
+        				tabxv[cpt]=90*i;
+ 					tabyv[cpt]=90*j-45;
+					tabxh[cpt]=90*i-45;
+					tabyh[cpt]=90*j;
+					cpt++;
+				}
+			}
+	
+			/***************Placer les images***************/
+
+			
+			gfx.drawImage(hero,0,0,50,50,x,y,40,40);
+			
+			
+			//gfx.drawImage(bmb,0,0,100,100,x+45,y,pb,pb);
+				
+			 
+			//gfx.drawImage(bmb,0,0,100,100,x+45,y,40,40);
+   		
+	};
+ 
+
+	function deplacer(event) {
+		pos=document.getElementById("demo").innerHTML= event.keyCode;  
+		gfx.fillStyle = rose; 
+		//droite
+    		if (pos === 39) {
+  			if(x<400){
+          		for(var i=0; i<tabxh.length; i++){
+	      			if (x===tabxh[i] && y===tabyh[i]){
+			  			return null;
+	      	 		}	
+	  			}
+				for(var i=0; i<tabBxh.length; i++){
+		      		if (x===tabBxh[i] && y===tabByh[i]){
+			  			return null;
+		       		}	
+		  		}	
+          		gfx.fillRect(x,y, 40, 40);
+				if(apb===1){
+					gfx.drawImage(bmb,0,0,100,100,x,y,40,40);
+					apb=0;
+				}
+          		gfx.drawImage(hero,0,0,50,50,x+45,y,40,40);
+          		x=x+45;
+        		}      
+		}	
+
+    		//gauche
+		if (pos === 37) {
+      		if(x>50){
+      	   		for(var i=0; i<tabxh.length; i++){
+		      		if (x===tabxh[i] && y===tabyh[i]){
+		  				return null;
+	       			}	
+	  			}
+				for(var i=0; i<tabBxh.length; i++){
+		      		if (x===tabBxh[i] && y===tabByh[i]){
+			  			return null;
+		       		}	
+		  		}
+         			gfx.fillRect(x,y, 40, 40);
+				if(apb===1){
+					gfx.drawImage(bmb,0,0,100,100,x,y,40,40);
+					apb=0;
+				}
+         			gfx.drawImage(hero,0,0,50,50,x-45,y,40,40);
+         			x=x-45;
+       		}
+    		}
+
+
+ 	   // haut
+		if (pos === 38) {
+      		if(y>50){
+      	      	for(var i=0; i<tabxv.length; i++){
+		      		if (x===tabxv[i] && y===tabyv[i]){
+			  			return null;
+		       		}	
+		  		}
+				for(var i=0; i<tabBxv.length; i++){
+		      		if (x===tabBxv[i] && y===tabByv[i]){
+			  			return null;
+		       		}	
+		  		}
+      	    		gfx.fillRect(x,y, 40, 40);
+				gfx.drawImage(hero,0,0,50,50,x,y-45,40,40);
+				if(apb===1){
+					gfx.drawImage(bmb,0,0,100,100,x,y,40,40);
+					apb=0;/*
+					tabBxv[b]=x;
+ 					tabByv[b]=y-45;
+					tabBxh[b]=x-45;
+ 					tabByh[b]=y;*/
+					b=b+1;
+				}
+				y=y-45;
+      	 	}
+    		}
+    
+    	// bas
+    		if (pos === 40) {
+    		  	if(y < 400){
+				
+		  		for(var i=0; i<tabxv.length; i++){
+		      		if (x===tabxv[i] && y===tabyv[i]){
+			  			return null;
+		       		}	
+		  		}
+				for(var i=0; i<tabBxv.length; i++){
+		      		if (x===tabBxv[i] && y===tabByv[i]-90){
+			  			return null;
+		       		}	
+		  		}
+				gfx.fillRect(x,y, 40, 40);
+				gfx.drawImage(hero,0,0,50,50,x,y+45,40,40);
+				if(apb===1){
+					gfx.drawImage(bmb,0,0,100,100,x,y,40,40);
+					apb=0;/*
+					tabBxv[b]=x;
+ 					tabByv[b]=y-45;
+					tabBxh[b]=x-45;
+ 					tabByh[b]=y;*/
+					b=b+1;
+				}
+				y=y+45;
+    	   		}
+    		}
+    		
+      	if(pos===32){
+      		gfx.drawImage(bmb,0,0,100,100,x,y,40,40);
+			apb = 1;
+			
+/*
+        				tabxv[cpt]=90*i;
+ 					tabyv[cpt]=90*j-45;
+					tabxh[cpt]=90*i-45;
+					tabyh[cpt]=90*j;
+*/
+
+
+      	}
+    	
+    		
+	}//fin deplacer()
+
+  </script>
+  </head>
+  <body>
+    <h1>Bomberman By P15</h1>
+    <center><canvas id='screen'>JavaScript est nécessaire ...</canvas></center>
+    
+    <body onkeyup="deplacer(event)"> </body>
+    <p id="demo"> </p>
+    
+    <script type='text/javascript'>
+	var canvas = document.getElementById("screen");
+	canvas.width  = 495; 
+	canvas.height = 495; 
+	var gfx=canvas.getContext("2d");
+    </script>
+    
+  </body>
+</html>

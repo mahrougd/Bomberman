@@ -1,0 +1,137 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src='p5.min.js'></script>
+    </head>
+    <body>
+        <script>
+            function setup() {
+                createCanvas(1179, 679);
+                background(200);
+                fill(200);
+                afficherPlateau();
+            }
+            
+
+            var imgBomb = new Image();
+            var imgBox = new Image();
+            var imgObstacle = new Image();
+            var imgPlayer = new Image();
+
+            var tray = initTray();
+            function initTray() {
+                var t;
+
+                switch(Math.round((Math.random() * 5) + 1)){  
+                    case 1 :
+                        t = "###################"
+                          + "#1   c    c cc c  #"
+                          + "#c#c# #c# #c# #c# #"
+                          + "#      c     c   c#"
+                          + "#c# #c# # #c#c# # #"
+                          + "#    c     c     c#"
+                          + "#c#c# #c#c# # #c#c#"
+                          + "#c c     c c   c  #"
+                          + "# #c# # #c#c#c# # #"
+                          + "#   c    c  c  c  #"
+                          + "###################";
+                        break;
+                    case 2 :
+                        t = "###################"
+                          + "#1   c  ccc c     #"
+                          + "#c# # #c#c#c# #c# #"
+                          + "#  c   c     c   c#"
+                          + "#c# #c# # #c#c# # #"
+                          + "#    c  cc c     c#"
+                          + "#c#c# #c#c# # #c# #"
+                          + "#c c   c     c   c#"
+                          + "#C# # #c# # #c# #c#"
+                          + "#    ccccccc      #"
+                          + "###################";
+                            break;
+                    case 3 :
+                        t = "###################"
+                          + "#1 c  c  cc c     #"
+                          + "# #c# #c#c#c# #c# #"
+                          + "#c c   c c c   c c#"
+                          + "#c# #c# # #c#c# # #"
+                          + "#    c     c     c#"
+                          + "#c#c# #c#c#c# #c# #"
+                          + "#c c c c c c c c c#"
+                          + "#C# # #c# # #c# #c#"
+                          + "#    c c cc       #"
+                          + "###################";
+                            break;
+                    case 4 :
+                        t = "###################"
+                          + "#1      ccc c     #"
+                          + "#c#c# #c# #c# #c# #"
+                          + "#  c   c     c   c#"
+                          + "#c# #c# # #c#c# # #"
+                          + "#c c     c c c   c#"
+                          + "# #c#c#c#c#c# #c# #"
+                          + "#  c   c   c     c#"
+                          + "#C# # #c# # #c# #c#"
+                          + "#    cc    c c    #"
+                          + "###################";
+                            break;
+                    case 5 :
+                        t = "###################"
+                          + "#1    ccccc c     #"
+                          + "#c#c# #c# #c# #c# #"
+                          + "#  c   c     c   c#"
+                          + "#c# #c# # #c#c# # #"
+                          + "#c cccccccc c c  c#"
+                          + "# #c#c# # #c# #c# #"
+                          + "#  c c c c c c   c#"
+                          + "#C# # #c# # #c# #c#"
+                          + "#    cc    c c    #"
+                          + "###################";
+                            break;
+                }
+                return t;
+            }
+
+            function preload() {
+                imgBomb = loadImage("Images/Bomb.png");
+                imgBox = loadImage("Images/Box.png");
+                imgPlayer = loadImage("Images/Player.png");
+                imgObstacle = loadImage("Images/Obstacle.png");
+            }
+
+            function afficherPlateau() {
+                var state;
+                var idx = 0;
+                for(var y = 0; y < 550; y += 50){
+                    for(var x = 0; x < 950; x += 50){
+                        state = tray.charAt(idx);
+                        switch (state){
+                            case '#':
+                                image(imgObstacle, x, y, 50, 50);
+                                break;
+                            case 'c':
+                                image(imgBox, x, y, 50, 50);
+                                break;
+                            case 'B':
+                                image(imgBomb, x, y, 50, 50);
+                                break;
+                            case '1':
+                                //image(imgPlayer, x, y, 50, 50);
+                                break;
+                            case '2':
+                                //image(imgPlayer, x, y, 50, 50);
+                                break;
+                            case ' ':
+                                rect (x, y, 50, 50);
+                                break;
+                        }
+                        idx++;
+                    }
+                }
+            }
+            
+        </script>
+    </body>
+</html>
