@@ -1,33 +1,632 @@
 <!DOCTYPE>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="style.css">
-		<title>Bomberman</title>
-	</head>
-	<body>
-		
-		<div id="divTitle">
-			<P id='title'>Bomberman</P>
-		</div>
-		<div id="divMenu">
-			
-		</div>
-		<div id="divGame">
-			<div id="divGameMenu">
-				<input type=button value="New Game" onclick="gameType();"></input>
-			</div>
-			<div id="divGameDisplay">
-			
-			</div>
-		</div>
-		<script>
-			function gameType(){
-				document.getElementById('divGameDisplay').innerHTML = 	"<ul id='menuList'>" +
-																			"<li><a>Jouer à 2</a></li>" +
-																			"<li><a>Jouer en réseau</a></li>" +
-																		"</ul>";
-			}
-		</script>
-	</body>
+<p></p><html>
+    <head>
+        <script type='text/javascript'>
+            
+            /******************Les Variables ***********************/
+            var x=45;
+            var y=45;
+            var pb=0;
+            var pos=0;
+            var apb=0;
+            var b=0;
+            //attrbut du j1
+            //nombre de bombe du joueur 1
+            var nb1=2;
+            var vie1=1;
+            //attrbut du j2
+            //nombre de bombe du joueur 2
+            var nb2=1;
+            var vie2=1;
+            //attrbut du j3
+            //nombre de bombe du joueur 3
+            var nb3=1;
+            var vie3=1;
+            //attrbut du j4
+            //nombre de bombe du joueur 4
+            var nb4=1;
+            var vie4=1;
+            //position du joueur 1
+            var posXJ1;
+            var posYJ1;
+            //position du joueur 2
+            var posXJ2;
+            var posYJ2;
+            //position du joueur 3
+            var posXJ3;
+            var posYJ3;
+            //position du joueur 4
+            var posXJ4;
+            var posYJ4;
+            
+            //les couleurs des cases
+            var rose = "rgb(239,219,200)";
+            var gris = "rgb(160,160,160)";
+            var marron ="rgb(88, 41, 0)";
+            var rouge ="rgb(255,0,0)";
+            var jaune ="rgb(255,255,0)";
+            var noir ="rgb(0,0,0)";
+            
+            
+            /******************Les Images ***********************/
+            
+            
+        //les heros
+        //joueur 1
+        var hero = new Image();
+        hero.src = 'hero.png';
+        hero.onload = function() {
+            console.info("hero loaded !");
+        };/*
+        //joueur 2
+        var hero = new Image();
+        hero.src = 'hero.png';
+        hero.onload = function() {
+            console.info("hero loaded !");
+        };
+        //joueur 3
+        var hero = new Image();
+        hero.src = 'hero.png';
+        hero.onload = function() {
+            console.info("hero loaded !");
+        };
+        //joueur 4
+        var hero = new Image();
+        hero.src = 'hero.png';
+        hero.onload = function() {
+            console.info("hero loaded !");
+        };*/
+        
+        
+        //les bombes en plus
+        var bmbBonus = new Image();
+        bmbBonus.src = 'BonusBomb.png';
+        bmbBonus.onload = function() {
+            console.info("bonus bomb loaded !");
+            //gfx.drawImage(bmb,0,0,100,100,x+45,y,40,40);
+        };
+        
+        //les bombes normales
+        var bmb = new Image();
+        bmb.src = 'Bomb.png';
+        bmb.onload = function() {
+            console.info("bomb loaded !");
+            //gfx.drawImage(bmb,0,0,100,100,x+45,y,40,40);
+        };
+        
+        var player2 = new Image();
+		player2.src = 'player2.png';
+		player2.onload = function() {
+    		console.info("player 2 loaded !");
+            //gfx.drawImage(player2,0,0,50,50,90,45,40,40);
+     	};
+        
+        //les obstacles incassables
+        var mur = new Image();
+        mur.src = 'Box.png';
+        mur.onload = function() {
+            console.info("mur");
+            //gfx.drawImage(bmb,0,0,100,100,x+45,y,40,40);
+        };
+        
+        //les obstacles cassables
+        var caisse = new Image();
+        caisse.src = 'Caisse.png';
+        caisse.onload = function() {
+            console.info("caisse");
+            //gfx.drawImage(bmb,0,0,500,500,x*L,y*c,40,40);
+        };
+        
+        //les colonnes
+        var col0=new Array;
+        col0[0]="#"; col0[1]="#"; col0[2]="#"; col0[3]="#"; col0[4]="#"; col0[5]="#";
+        col0[6]="#"; col0[7]="#"; col0[8]="#"; col0[9]="#"; col0[10]="#"; col0[11]="#";
+        var col1=new Array;
+        col1[0]="#"; col1[1]="#"; col1[2]="#"; col1[3]="#"; col1[4]="#"; col1[5]="#";
+        col1[6]="#"; col1[7]="#"; col1[8]="#"; col1[9]="#"; col1[10]="#"; col1[11]="#";
+        var col2=new Array;
+        col2[0]="#"; col2[1]="#"; col2[2]="#"; col2[3]="#"; col2[4]="#"; col2[5]="#";
+        col2[6]="#"; col2[7]="#"; col2[8]="#"; col2[9]="#"; col2[10]="#"; col2[11]="#";
+        var col3=new Array;
+        col3[0]="#"; col3[1]="#"; col3[2]="#"; col3[3]="#"; col3[4]="#"; col3[5]="#";
+        col3[6]="#"; col3[7]="#"; col3[8]="#"; col3[9]="#"; col3[10]="#"; col3[11]="#";
+        var col4=new Array;
+        col4[0]="#"; col4[1]="#"; col4[2]="#"; col4[3]="#"; col4[4]="#"; col4[5]="#";
+        col4[6]="#"; col4[7]="#"; col4[8]="#"; col4[9]="#"; col4[10]="#"; col4[11]="#";
+        var col5=new Array;
+        col5[0]="#"; col5[1]="#"; col5[2]="#"; col5[3]="#"; col5[4]="#"; col5[5]="#";
+        col5[6]="#"; col5[7]="#"; col5[8]="#"; col5[9]="#"; col5[10]="#"; col5[11]="#";
+        var col6=new Array;
+        col6[0]="#"; col6[1]="#"; col6[2]="#"; col6[3]="#"; col6[4]="#"; col6[5]="#";
+        col6[6]="#"; col6[7]="#"; col6[8]="#"; col6[9]="#"; col6[10]="#"; col6[11]="#";
+        var col7=new Array;
+        col7[0]="#"; col7[1]="#"; col7[2]="#"; col7[3]="#"; col7[4]="#"; col7[5]="#";
+        col7[6]="#"; col7[7]="#"; col7[8]="#"; col7[9]="#"; col7[10]="#"; col7[11]="#";
+        var col8=new Array;
+        col8[0]="#"; col8[1]="#"; col8[2]="#"; col8[3]="#"; col8[4]="#"; col8[5]="#";
+        col8[6]="#"; col8[7]="#"; col8[8]="#"; col8[9]="#"; col8[10]="#"; col8[11]="#";
+        var col9=new Array;
+        col9[0]="#"; col9[0]="#"; col9[0]="#"; col9[0]="#"; col9[0]="#"; col9[0]="#";
+        col9[6]="#"; col9[7]="#"; col9[8]="#"; col9[9]="#"; col9[10]="#"; col9[11]="#";
+        var col10=new Array;
+        col10[0]="#"; col10[1]="#"; col10[2]="#"; col10[3]="#"; col10[4]="#"; col10[5]="#";
+        col10[6]="#"; col10[7]="#"; col10[8]="#"; col10[9]="#"; col10[10]="#"; col10[11]="#";
+        var col11=new Array;
+        col11[0]="#"; col11[1]="#"; col11[2]="#"; col11[3]="#"; col11[4]="#"; col11[5]="#";
+        col11[6]="#"; col11[7]="#"; col11[8]="#"; col11[9]="#"; col11[10]="#"; col11[11]="#";
+        
+        //le plateau
+        var plateau=new Array;
+        plateau[0] = [col0];
+        plateau[1] = [col1];
+        plateau[2] = [col2];
+        plateau[3] = [col3];
+        plateau[4] = [col4];
+        plateau[5] = [col5];
+        plateau[6] = [col6];
+        plateau[7] = [col7];
+        plateau[8] = [col8];
+        plateau[9] = [col9];
+        plateau[10] = [col10];
+        
+        
+        //  tableau   []
+        /*
+         D'abord on crée les 3 colonnes :
+         var col0=new Array; col0[0]=" "; col0[1]="X"; col0[2]="O";
+         var col1=new Array; col1[0]=" "; col1[1]="O"; col1[2]="X";
+         var col2=new Array; col2[0]="X"; col2[1]=" "; col2[2]=" ";
+         
+         Ensuite le tableau morpion :
+         var morpion=new Array;
+         morpion[0]=col0; morpion[1]=col1; morpion[2]=col2;
+         
+         Pour accéder à l'élément [0,2], on écrit simplement :
+         morpion[0][2]*/
+        
+        //on initialise le plateau
+        window.onload = function(){
+            for (var l=0; l<canvas.width/45; l++) {
+                for (var c=0; c<canvas.height/45;c++) {
+                    if(l===0 || c===0 || c===canvas.height/45-1 || l===canvas.width/45-1){
+                        plateau[l][c]="#";
+                        if(plateau[l][c]==="#"){
+                            gfx.fillStyle = gris;
+                            //gfx.drawImage(mur,0,0,32,32,x*l,y*c,40,40);
+                        }
+                        
+                    }else if(l%2===0 && c%2 ===0){
+                        plateau[l][c]="#";
+                        if(plateau[l][c]==="#"){
+                            gfx.fillStyle = gris;
+                        }
+                    }else{
+                        plateau[l][c]=" ";
+                        if(plateau[l][c]===" "){
+                            gfx.fillStyle = rose;
+                        }
+                    }
+                    gfx.fillRect(45*l, 45*c, 40, 40);
+                    if(l===1 && c===1){
+                        plateau[l][c]="1";
+                        if(plateau[l][c]==="1"){
+                            gfx.drawImage(hero,0,0,50,50,x*l,y*c,40,40);
+                        }
+                    }
+                    if(l===9 && c===9){
+                        plateau[l][c]="4";
+                        if(plateau[l][c]==="4"){
+                            gfx.drawImage(player2,0,0,50,50,l*x,c*y,40,40);
+                        }
+                    }
+                    if(l===0 || c===0 || c===canvas.height/45-1 || l===canvas.width/45-1){
+                        plateau[l][c]="#";
+                        if(plateau[l][c]==="#"){
+                            //gfx.fillStyle = gris;
+                            gfx.drawImage(mur,0,0,32,32,x*l,y*c,40,40);
+                        }
+                        
+                    }
+                    if(l%2===0 && c%2 ===0){
+                        plateau[l][c]="#";
+                        if(plateau[l][c]==="#"){
+                            gfx.drawImage(mur,0,0,32,32,x*l,y*c,40,40);
+                        }
+                    }
+                    if(l===4 && c===5){
+                        plateau[l][c]="b";
+                        if(plateau[l][c]==="b"){
+                            gfx.drawImage(bmbBonus,0,0,100,100,x*l,y*c,40,40);
+                        }
+                    }
+                    
+                }
+            }
+            
+            
+            var r=Math.floor(Math.random() * (4));
+            
+            if ( r===0){
+			 	gfx.drawImage(caisse,0,0,500,500,3*x,y,40,40);
+                plateau[3][1]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,y,40,40);
+                plateau[5][1]="c";
+				gfx.drawImage(caisse,0,0,500,500,7*x,y,40,40);
+                plateau[7][1]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,5*y,40,40);
+                plateau[5][5]="c";
+				gfx.drawImage(caisse,0,0,500,500,9*x,7*y,40,40);
+                plateau[9][7]="c";
+				gfx.drawImage(caisse,0,0,500,500,x,9*y,40,40);
+                plateau[1][9]="c";
+				gfx.drawImage(caisse,0,0,500,500,x,3*y,40,40);
+                plateau[1][3]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,9*y,40,40);
+                plateau[5][9]="c";
+				gfx.drawImage(caisse,0,0,500,500,7*x,5*y,40,40);
+                plateau[7][5]="c";
+				gfx.drawImage(caisse,0,0,500,500,3*x,6*y,40,40);
+                plateau[3][6]="c";
+				gfx.drawImage(caisse,0,0,500,500,7*x,4*y,40,40);
+                plateau[7][4]="c";
+				gfx.drawImage(caisse,0,0,500,500,4*x,7*y,40,40);
+                plateau[4][7]="c";
+                
+            }
+            
+            if ( r===1){
+				gfx.drawImage(caisse,0,0,500,500,5*x,y,40,40);
+                plateau[5][1]="c";
+				gfx.drawImage(caisse,0,0,500,500,x,5*y,40,40);
+                plateau[1][5]="c";
+			 	gfx.drawImage(caisse,0,0,500,500,3*x,9*y,40,40);
+                plateau[3][9]="c";
+				gfx.drawImage(caisse,0,0,500,500,7*x,9*y,40,40);
+                plateau[7][9]="c";
+				gfx.drawImage(caisse,0,0,500,500,7*x,7*y,40,40);
+                plateau[7][7]="c";
+                gfx.drawImage(caisse,0,0,500,500,5*x,5*y,40,40);
+                plateau[5][5]="c";
+				gfx.drawImage(caisse,0,0,500,500,4*x,3*y,40,40);
+                plateau[4][3]="c";
+				gfx.drawImage(caisse,0,0,500,500,9*x,4*y,40,40);
+                plateau[9][4]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,9*y,40,40);
+                plateau[5][9]="c";
+				gfx.drawImage(caisse,0,0,500,500,3*x,2*y,40,40);
+                plateau[3][2]="c";
+				gfx.drawImage(caisse,0,0,500,500,3*x,4*y,40,40);
+                plateau[3][4]="c";
+            }
+            
+            if ( r===2){
+			 	gfx.drawImage(caisse,0,0,500,500,x,3*y,40,40);
+                plateau[1][3]="c";
+				gfx.drawImage(caisse,0,0,500,500,x,7*y,40,40);
+                plateau[1][7]="c";
+				gfx.drawImage(caisse,0,0,500,500,7*x,7*y,40,40);
+                plateau[7][7]="c";
+				gfx.drawImage(caisse,0,0,500,500,9*x,6*y,40,40);
+                plateau[9][6]="c";
+				gfx.drawImage(caisse,0,0,500,500,3*x,y,40,40);
+                plateau[3][1]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,y,40,40);
+                plateau[5][1]="c";
+				gfx.drawImage(caisse,0,0,500,500,6*x,9*y,40,40);
+                plateau[6][9]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,3*y,40,40);
+                plateau[5][3]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,4*y,40,40);
+                plateau[5][4]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,5*y,40,40);
+                plateau[5][5]="c";
+				gfx.drawImage(caisse,0,0,500,500,9*x,6*y,40,40);
+                plateau[9][6]="c";
+				gfx.drawImage(caisse,0,0,500,500,9*x,7*y,40,40);
+                plateau[9][7]="c";
+            }
+            if ( r===3){
+			 	gfx.drawImage(caisse,0,0,500,500,x,3*y,40,40);
+                plateau[1][3]="c";
+				gfx.drawImage(caisse,0,0,500,500,7*x,7*y,40,40);
+                plateau[7][7]="c";
+				gfx.drawImage(caisse,0,0,500,500,x,5*y,40,40);
+                plateau[1][5]="c";
+				gfx.drawImage(caisse,0,0,500,500,3*x,y,40,40);
+                plateau[3][1]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,y,40,40);
+                plateau[5][1]="c";
+				gfx.drawImage(caisse,0,0,500,500,6*x,9*y,40,40);
+                plateau[6][9]="c";
+				gfx.drawImage(caisse,0,0,500,500,9*x,6*y,40,40);
+                plateau[9][6]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,3*y,40,40);
+                plateau[5][3]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,4*y,40,40);
+                plateau[5][4]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,5*y,40,40);
+                plateau[5][5]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,6*y,40,40);
+                plateau[5][6]="c";
+				gfx.drawImage(caisse,0,0,500,500,5*x,7*y,40,40);
+                plateau[5][7]="c";
+            }
+        }
+        
+        
+        
+        
+        
+        /*		COURS SUR LES slice POUR LES MODIFICATIONS
+         
+         
+         //Exemple de modification : on ajoute à la position d'indice 1 et on supprime à 2 indices de plus
+         var dmc = [1,2,3,4,5];
+         alert(dmc.splice(1,2,"a","b"));
+         //2,3
+         alert(dmc);
+         //1,a,b,4,5
+         
+         //Exemple de suppression : on commence à la position d'indice 1 et on supprime à 2 indices de plus
+         var dmc = [1,2,3,4,5];
+         alert(dmc.splice(1,2));
+         //2,3
+         alert(dmc);
+         //1,4,5
+         
+         //Exemple de ajout : on ajoute à la position d'indice 1 et on ne supprime rien
+         var dmc = [1,2,3,4,5];
+         alert(dmc.splice(1,0,"a","b"));
+         //
+         alert(dmc);
+         //1,a,b,2,3,4,5
+         
+         //Exemple de modification et ajout : on ajoute à la position d'indice 1 et on supprime à un indice de plus
+         var dmc = [1,2,3,4,5];
+         alert(dmc.splice(1,1,"a","b"));
+         //2
+         alert(dmc);
+         //1,a,b,3,4,5
+         */
+        
+        
+        
+        function deplacer(event) {
+            pos=document.getElementById("demo").innerHTML= event.keyCode;
+            gfx.fillStyle = rose;
+            for(var chercheX=0;chercheX<11;chercheX++){
+                for(var chercheY=0;chercheY<11;chercheY++){
+                    if(plateau[chercheX][chercheY]==="1"){
+                        posXJ1=chercheX;
+                        posYJ1=chercheY;
+                    }
+                    if(plateau[chercheX][chercheY]==="2"){
+                        posXJ2=chercheX;
+                        posYJ2=chercheY;
+                    }
+                    if(plateau[chercheX][chercheY]==="3"){
+                        posXJ3=chercheX;
+                        posYJ3=chercheY;
+                    }
+                    if(plateau[chercheX][chercheY]==="4"){
+                        posXJ4=chercheX;
+                        posYJ4=chercheY;
+                    }
+                }
+            }
+            
+            // pipe  ||
+            
+            //droite
+            if (pos === 39) {
+                if(plateau[posXJ1+1][posYJ1]===" " || plateau[posXJ1+1][posYJ1]==="p" || plateau[posXJ1+1][posYJ1]==="b"){
+                    if(plateau[posXJ1+1][posYJ1]==="p"){
+                        pb1=pb1+1;
+                    }
+                    if(plateau[posXJ1+1][posYJ1]==="b"){
+                        nb1=nb1+1;
+                    }
+                    plateau[posXJ1][posYJ1]=" ";
+                    plateau[posXJ1+1][posYJ1]="1";
+                    gfx.fillRect(x,y, 40, 40);
+                    if(apb===1){
+                        gfx.drawImage(bmb,0,0,100,100,x,y,40,40);
+                        plateau[posXJ1][posYJ1]="B";
+                        apb=0;
+                    }
+                    gfx.drawImage(hero,0,0,50,50,x+45,y,40,40);
+                    x=x+45;
+                }
+            }
+            
+            //gauche
+            if (pos === 37) {
+                if(plateau[posXJ1-1][posYJ1]===" " || plateau[posXJ1-1][posYJ1]==="p" || plateau[posXJ1-1][posYJ1]==="b"){
+                    if(plateau[posXJ1-1][posYJ1]==="p"){
+                        pb1=pb1+1;
+                    }
+                    if(plateau[posXJ1-1][posYJ1]==="b"){
+                        nb1=nb1+1;
+                    }
+                    plateau[posXJ1][posYJ1]=" ";
+                    plateau[posXJ1-1][posYJ1]="1";
+                    
+                    gfx.fillRect(x,y, 40, 40);
+                    if(apb===1){
+                        gfx.drawImage(bmb,0,0,100,100,x,y,40,40);
+                        plateau[posXJ1][posYJ1]="B";
+                        apb=0;
+                    }
+                    gfx.drawImage(hero,0,0,50,50,x-45,y,40,40);
+                    x=x-45;
+                }
+            }
+            
+            
+            // haut
+            if (pos === 38) {
+                if(plateau[posXJ1][posYJ1-1]===" " || plateau[posXJ1][posYJ1-1]==="p" || plateau[posXJ1][posYJ1-1]==="b"){
+                    if(plateau[posXJ1][posYJ1-1]==="p"){
+                        pb1=pb1+1;
+                    }
+                    if(plateau[posXJ1][posYJ1-1]==="b"){
+                        nb1=nb1+1;
+                    }
+                    plateau[posXJ1][posYJ1]=" ";
+                    plateau[posXJ1][posYJ1-1]="1";
+                    
+                    gfx.fillRect(x,y, 40, 40);
+                    gfx.drawImage(hero,0,0,50,50,x,y-45,40,40);
+                    if(apb===1){
+                        gfx.drawImage(bmb,0,0,100,100,x,y,40,40);
+                        plateau[posXJ1][posYJ1]="B";
+                        apb=0;
+                    }
+                    y=y-45;
+                }
+    		}
+            
+            // bas
+    		if (pos === 40) {
+    		  	if(plateau[posXJ1][posYJ1+1]===" " || plateau[posXJ1][posYJ1+1]==="p" || plateau[posXJ1][posYJ1+1]==="b"){
+                    if(plateau[posXJ1][posYJ1+1]==="p"){
+                        pb1=pb1+1;
+                    }
+                    if(plateau[posXJ1][posYJ1+1]==="b"){
+                        nb1=nb1+1;
+                    }
+                    plateau[posXJ1][posYJ1]=" ";
+                    plateau[posXJ1][posYJ1+1]="1";
+                    
+                    gfx.fillRect(x,y, 40, 40);
+                    gfx.drawImage(hero,0,0,50,50,x,y+45,40,40);
+                    if(apb===1){
+                        plateau[posXJ1][posYJ1]="B";
+                        gfx.drawImage(bmb,0,0,100,100,x,y,40,40);
+                        apb=0;
+                    }
+                    y=y+45;
+    	   		}
+    		}
+    		
+            if(pos===32){
+                if(nb1!==0){
+                    gfx.drawImage(bmb,0,0,100,100,x,y,40,40);
+                    var Bx=posXJ1;
+                    var By=posYJ1;
+                    var posBx=x;
+                    var posBy=y;
+                    apb = 1;
+                    nb1=nb1-1;
+                    setTimeout(function(){
+                        //faire exploser la bombe au bout de 3 secondes
+                        plateau[Bx][By]=" ";
+                        gfx.fillStyle = rouge;
+                        gfx.fillRect(posBx,posBy, 40, 40);
+                        setTimeout(function(){
+                            gfx.fillStyle = rose;
+                            gfx.fillRect(posBx,posBy, 40, 40);
+                            nb1=nb1+1;
+                            //gfx.drawImage(bonus,0,0,100,100,posBx,posBy,40,40);
+                        },500);
+                            
+                        if(plateau[Bx+1][By]!=="#"){
+                            if(plateau[Bx+1][By]==="1"){
+                               vie1=vie1-1;
+                               alert("Le Joueur 1 est mort");
+                            }
+                            if(plateau[Bx+1][By]==="2"){
+                               vie2=vie2-1;
+                               alert("Le Joueur 2 est mort");
+                            }
+                            plateau[Bx+1][By]=" ";
+                            gfx.fillStyle = rouge;
+                            gfx.fillRect(posBx+45,posBy, 40, 40);
+                            setTimeout(function(){
+                                gfx.fillStyle = rose;
+                                gfx.fillRect(posBx+45,posBy, 40, 40);
+                            },500);
+                        }
+                        if(plateau[Bx-1][By]!=="#"){
+                            if(plateau[Bx-1][By]==="1"){
+                               vie1=vie1-1;
+                               alert("Le Joueur 1 est mort");
+                            }
+                            if(plateau[Bx-1][By]==="2"){
+                               vie2=vie2-1;
+                               alert("Le Joueur 2 est mort");
+                            }
+                            plateau[Bx-1][By]=" ";
+                            gfx.fillStyle = rouge;
+                            gfx.fillRect(posBx-45,posBy, 40, 40);
+                            setTimeout(function(){
+                                    gfx.fillStyle = rose;
+                                    gfx.fillRect(posBx-45,posBy, 40, 40);
+                            },500);
+                        }
+                        if(plateau[Bx][By+1]!=="#"){
+                            if(plateau[Bx][By+1]==="1"){
+                               vie1=vie1-1;
+                               alert("Le Joueur 1 est mort");
+                            }
+                            if(plateau[Bx][By+1]==="2"){
+                               vie2=vie2-1;
+                               alert("Le Joueur 2 est mort");
+                            }
+                            plateau[Bx][By+1]=" ";
+                            gfx.fillRect(posBx,posBy+45, 40, 40);
+                            setTimeout(function(){
+                                    gfx.fillStyle = rose;
+                                    gfx.fillRect(posBx,posBy+45, 40, 40);
+                                          },500);
+                        }
+                        if(plateau[Bx][By-1]!=="#"){
+                            if(plateau[Bx][By-1]==="1"){
+                                vie1=vie1-1;
+                                alert("Le Joueur 1 est mort");
+                            }
+                            if(plateau[Bx][By-1]==="2"){
+                               vie2=vie2-1;
+                               alert("Le Joueur 2 est mort");
+                            }
+                               plateau[Bx][By-1]=" ";
+                               gfx.fillRect(posBx,posBy-45, 40, 40);
+                               setTimeout(function(){
+                                          gfx.fillStyle = rose;
+                                          gfx.fillRect(posBx,posBy-45, 40, 40);
+                                          },500);
+                        }
+                               
+                               
+                    },3000);
+                               
+                               
+                }
+                
+            }
+            
+    		
+        }//fin deplacer()
+        
+            </script>
+    </head>
+    <body>
+        <h1>Bomberman By Project 15</h1>
+        <center><canvas id='screen'>JavaScript est nécessaire ...</canvas></center>
+        
+        <body onkeyup="deplacer(event)">
+        </body>
+        <h3>Equipe 15 :</h3>
+        <p>Douae MAHROUG, Florian GUILBERT</p>
+        <p>Medhi BUSTIN, Alexandre LIEBART</p>
+        <p id="demo"> </p>
+        
+        <script type='text/javascript'>
+            var canvas = document.getElementById("screen");
+            canvas.width  = 495; 
+            canvas.height = 495; 
+            var gfx=canvas.getContext("2d");
+            </script>
+        
+    </body>
 </html>
